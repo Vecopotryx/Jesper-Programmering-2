@@ -8,7 +8,7 @@ namespace HelloWorld
         static int age;
         static bool isAlive;
         static string name;
-        
+
         static void Main(string[] args)
         {
             GetUserInfo();
@@ -23,13 +23,25 @@ namespace HelloWorld
             if (isAlive)
             {
                 deadOrAlive = "alive";
-                XpStartup();
-            } else
+            }
+            else
             {
                 deadOrAlive = "dead";
-                XpShutdown();
             }
             Console.WriteLine("You are currently " + deadOrAlive + " and " + age + " years old");
+            DateTime now = DateTime.Today;
+            int year = int.Parse(now.ToString("yyyy")) - age;
+            Console.WriteLine("That means that you were likely born in the year " + (year - 1)+ " or " + (year));
+            if(Math.Min(age, 18) >= 18)
+            {
+                Console.WriteLine("You are legaly considered an adult");
+            } else
+            {
+                Console.WriteLine("You are legaly considered a minor");
+            }
+            Console.WriteLine("Press any key to exit");
+            Console.ReadLine();
+            XpShutdown();
         }
 
         static void GetUserInfo()
@@ -65,7 +77,8 @@ namespace HelloWorld
             if (Console.ReadLine().ToLower().Equals("yes"))
             {
                 return true;
-            } else
+            }
+            else
             {
                 return false;
             }
@@ -75,22 +88,13 @@ namespace HelloWorld
         {
             Console.WriteLine("Hello " + personIn);
         }
+        
         static void XpShutdown()
         {
-            // Play Windows XP shutdown sound.
+            // Play the Windows XP shutdown sound.
             Console.Beep(1661, 250); // G#
             Console.Beep(1244, 250); // D#
             Console.Beep(830, 250); // G# (One octave down)
-            Console.Beep(932, 250); // A#
-        }
-        static void XpStartup()
-        {
-            // Play Windows XP startup sound.
-            Console.Beep(1244, 500); // D#
-            Console.Beep(932, 250); // A#
-            Console.Beep(932, 250); // A#
-            Console.Beep(830, 250); // G# (One octave down)
-            Console.Beep(1244, 500); // D#
             Console.Beep(932, 250); // A#
         }
     }
