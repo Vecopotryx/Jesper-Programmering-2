@@ -74,21 +74,37 @@ namespace HelloWorld
             Console.WriteLine("1. Go agane");
             Console.WriteLine("2. Enter the infinite maze");
             Console.WriteLine("0. Exit");
-            switch (int.Parse(Console.ReadLine()))
+
+            bool inMenu = true;
+
+            while (inMenu)
             {
-                case 1:
-                    DrawLine();
-                    Console.Clear();
-                    break;
-                case 2:
-                    DrawLine();
-                    DrawMaze();
-                    break;
-                case 0:
-                    DrawLine();
-                    XpShutdown();
-                    Environment.Exit(0);
-                    break;
+                try
+                {
+                    switch (int.Parse(Console.ReadLine()))
+                    {
+                        case 1:
+                            DrawLine();
+                            Console.Clear();
+                            inMenu = false;
+                            break;
+                        case 2:
+                            DrawLine();
+                            inMenu = false;
+                            DrawMaze();
+                            break;
+                        case 0:
+                            DrawLine();
+                            inMenu = false;
+                            XpShutdown();
+                            Environment.Exit(0);
+                            break;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Please pick a valid option");
+                }
             }
         }
 
@@ -117,21 +133,31 @@ namespace HelloWorld
         static string GetName()
         {
             Console.WriteLine("What's your name?");
-            return Console.ReadLine();
+            string nameIn = Console.ReadLine();
+            if (string.IsNullOrEmpty(nameIn))
+            {
+                GetName();
+            }
+            return nameIn;
         }
 
         static int GetAge()
         {
-            Console.WriteLine("How old are you?");
-
-            string consoleIn = Console.ReadLine();
-            if (!int.TryParse(consoleIn, out int converted))
+            while (true)
             {
-                Console.WriteLine(consoleIn + " doesn't seem like a valid age. Please enter a valid integer");
-                consoleIn = Console.ReadLine();
-            }
-            return int.Parse(consoleIn);
+                try
+                {
+                    Console.WriteLine("How old are you?");
 
+                    string consoleIn = Console.ReadLine();
+
+                    return int.Parse(consoleIn);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("That doesn't seem like a valid age. Please enter a valid integer");
+                }
+            }
         }
 
         static bool GetAlive()
