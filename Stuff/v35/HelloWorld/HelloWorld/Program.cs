@@ -21,7 +21,6 @@ namespace HelloWorld
 
         static void DrawMaze()
         {
-
             Random rand = new Random();
             while (true)
             {
@@ -51,7 +50,6 @@ namespace HelloWorld
         static void PrintUserInfo()
         {
             Console.Clear();
-            Greetings(name);
             var deadOrAlive = "dead";
             if (isAlive)
             {
@@ -61,17 +59,16 @@ namespace HelloWorld
             {
                 deadOrAlive = "dead";
             }
+
+            Greetings(name);
+            Console.WriteLine();
             Console.WriteLine("You are currently " + deadOrAlive + " and " + age + " years old");
-            DateTime now = DateTime.Today;
-            int year = int.Parse(now.ToString("yyyy")) - age;
-            Console.WriteLine("That means that you were likely born in the year " + (year - 1)+ " or " + (year));
-            if(Math.Min(age, 18) >= 18)
-            {
-                Console.WriteLine("You are legaly considered an adult");
-            } else
-            {
-                Console.WriteLine("You are legaly considered a minor");
-            }
+            PrintAgeInfo();
+            MenuHandler();
+        }
+
+        static void MenuHandler()
+        {
             DrawLine();
             Console.WriteLine("What would you like to do?");
             Console.WriteLine("1. Go agane");
@@ -80,24 +77,40 @@ namespace HelloWorld
             switch (int.Parse(Console.ReadLine()))
             {
                 case 1:
+                    DrawLine();
                     Console.Clear();
                     break;
                 case 2:
+                    DrawLine();
                     DrawMaze();
                     break;
                 case 0:
+                    DrawLine();
                     XpShutdown();
                     Environment.Exit(0);
                     break;
             }
         }
 
+        static void PrintAgeInfo()
+        {
+            DateTime now = DateTime.Today;
+            int year = int.Parse(now.ToString("yyyy")) - age;
+            Console.WriteLine("That means that you were likely born in the year " + (year - 1) + " or " + (year));
+            if (Math.Min(age, 18) >= 18)
+            {
+                Console.WriteLine("You are legaly considered an adult");
+            }
+            else
+            {
+                Console.WriteLine("You are legaly considered a minor");
+            }
+        }
+
         static void GetUserInfo()
         {
             name = GetName();
-            DrawLine();
             age = GetAge();
-            DrawLine();
             isAlive = GetAlive();
         }
 
@@ -136,7 +149,29 @@ namespace HelloWorld
 
         static void Greetings(String personIn)
         {
-            Console.WriteLine("Hello " + personIn);
+            String currentPartOfDay;
+
+            DateTime date = DateTime.Now;
+
+            if (date.Hour >= 6 && date.Hour < 12)
+            {
+                currentPartOfDay = "morning";
+            }
+            else if (date.Hour >= 12)
+            {
+                currentPartOfDay = "afternoon";
+            }
+            else if (date.Hour >= 16)
+            {
+                currentPartOfDay = "evening";
+            }
+            else
+            {
+                currentPartOfDay = "night";
+            }
+
+
+            Console.WriteLine("Good " + currentPartOfDay + " " + personIn);
         }
         static void XpShutdown()
         {
