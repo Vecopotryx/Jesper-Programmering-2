@@ -11,8 +11,41 @@ namespace HelloWorld
 
         static void Main(string[] args)
         {
-            GetUserInfo();
-            PrintUserInfo();
+            while (true)
+            {
+                GetUserInfo();
+                PrintUserInfo();
+            }
+
+        }
+
+        static void DrawMaze()
+        {
+
+            Random rand = new Random();
+            while (true)
+            {
+                switch (rand.Next(0, 2))
+                {
+                    case 0:
+                        Console.Write("/");
+                        break;
+                    case 1:
+                        Console.Write("\\");
+                        break;
+                }
+                System.Threading.Thread.Sleep(1);
+            }
+        }
+
+        static void DrawLine()
+        {
+            for (int i = 0; i < 25; i++)
+            {
+                System.Threading.Thread.Sleep(1);
+                Console.Write("--");
+            }
+            Console.WriteLine();
         }
 
         static void PrintUserInfo()
@@ -39,15 +72,32 @@ namespace HelloWorld
             {
                 Console.WriteLine("You are legaly considered a minor");
             }
-            Console.WriteLine("Press any key to exit");
-            Console.ReadLine();
-            XpShutdown();
+            DrawLine();
+            Console.WriteLine("What would you like to do?");
+            Console.WriteLine("1. Go agane");
+            Console.WriteLine("2. Enter the infinite maze");
+            Console.WriteLine("0. Exit");
+            switch (int.Parse(Console.ReadLine()))
+            {
+                case 1:
+                    Console.Clear();
+                    break;
+                case 2:
+                    DrawMaze();
+                    break;
+                case 0:
+                    XpShutdown();
+                    Environment.Exit(0);
+                    break;
+            }
         }
 
         static void GetUserInfo()
         {
             name = GetName();
+            DrawLine();
             age = GetAge();
+            DrawLine();
             isAlive = GetAlive();
         }
 
@@ -88,7 +138,6 @@ namespace HelloWorld
         {
             Console.WriteLine("Hello " + personIn);
         }
-        
         static void XpShutdown()
         {
             // Play the Windows XP shutdown sound.
