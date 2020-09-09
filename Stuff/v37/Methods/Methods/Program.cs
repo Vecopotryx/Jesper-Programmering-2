@@ -21,7 +21,8 @@ namespace Methods
             {
                 Console.WriteLine("Adding integer number " + (integers.Count + 1));
                 Console.WriteLine("Enter 0 when your finished");
-                var currentEntry = int.Parse(Console.ReadLine()); // it is currently really easy to crash this program by entering something that int.Parse cant covert
+
+                var currentEntry = GetIntegerInput();
                 if(currentEntry == 0)
                 {
                     break;
@@ -93,7 +94,7 @@ namespace Methods
             {
                 Console.WriteLine("Adding integer number " + (integers.Count + 1));
                 Console.WriteLine("Enter 0 when your finished");
-                var currentEntry = int.Parse(Console.ReadLine()); // it is currently really easy to crash this program by entering something that int.Parse cant covert
+                var currentEntry = GetIntegerInput();
                 if (currentEntry == 0)
                 {
                     break;
@@ -116,6 +117,23 @@ namespace Methods
                 Console.WriteLine("Minimum: " + integers.Min());
             }
             Console.WriteLine(); // Just for aesthetics
+        }
+
+        static int GetIntegerInput()
+        {
+            while (true)
+            {
+                string input = Console.ReadLine();
+
+                if (int.TryParse(input, out int result))
+                {
+                    return result;
+                }
+                else
+                {
+                    Console.WriteLine("That doesn't appear to be a valid integer, try again");
+                }
+            }
         }
     }
 }
