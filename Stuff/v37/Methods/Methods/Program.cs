@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Methods
 {
@@ -9,6 +10,7 @@ namespace Methods
         {
             Console.WriteLine(AddIntegerList());
             WordListReverser();
+            FindGreatest();
         }
 
         static double AddIntegerList()
@@ -76,6 +78,29 @@ namespace Methods
             {
                 Console.Write(word + " ");
             }
+        }
+
+        static void FindGreatest()
+        {
+            var integers = new List<int>();
+
+            while (true)
+            {
+                Console.WriteLine("Adding integer number " + (integers.Count + 1));
+                Console.WriteLine("Enter 0 when your finished");
+                var currentEntry = int.Parse(Console.ReadLine()); // it is currently really easy to crash this program by entering something that int.Parse cant covert
+                if (currentEntry == 0)
+                {
+                    break;
+                }
+                else
+                {
+                    integers.Add(currentEntry);
+                }
+            }
+
+            Console.WriteLine("Greatest: " + integers.Max());
+            Console.WriteLine("Minimum: " + integers.Min());
         }
     }
 }
