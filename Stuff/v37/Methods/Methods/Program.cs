@@ -8,14 +8,15 @@ namespace Methods
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(AddIntegerList());
+            Console.WriteLine(IntegerListSum());
             WordListReverser();
             FindGreatest();
         }
 
-        static double AddIntegerList()
+        static double IntegerListSum()
         {
             var integers = new List<int>();
+            Console.WriteLine("Enter a few numbers and this application will print the sum");
             while (true)
             {
                 Console.WriteLine("Adding integer number " + (integers.Count + 1));
@@ -37,20 +38,19 @@ namespace Methods
             }
 
             Console.WriteLine();
-
-
             return total;
         }
 
         static void WordListReverser()
         {
             List<string> wordList = new List<string>();
-
+            Console.WriteLine(); // Just for aesthetics
+            Console.WriteLine("Enter a few words and this application will reverse the list");
             while (true)
             {
                 Console.WriteLine("Adding word number " + (wordList.Count + 1));
                 Console.WriteLine("Enter 0 when your finished");
-                var currentEntry = Console.ReadLine(); // it is currently really easy to crash this program by entering something that int.Parse cant covert
+                var currentEntry = Console.ReadLine();
                 if (currentEntry.Equals("0"))
                 {
                     break;
@@ -78,11 +78,16 @@ namespace Methods
             {
                 Console.Write(word + " ");
             }
+
+            Console.WriteLine(); // Just for aesthetics
+            Console.WriteLine(); // Just for aesthetics
         }
 
         static void FindGreatest()
         {
             var integers = new List<int>();
+
+            Console.WriteLine("Enter a few numbers and this application will print the greatest and smallest value");
 
             while (true)
             {
@@ -98,9 +103,19 @@ namespace Methods
                     integers.Add(currentEntry);
                 }
             }
+            foreach (int current in integers)
+            {
+                Console.Write(current + " ");
+            }
 
-            Console.WriteLine("Greatest: " + integers.Max());
-            Console.WriteLine("Minimum: " + integers.Min());
+            Console.WriteLine();
+
+            if (integers.Any())
+            {
+                Console.WriteLine("Greatest: " + integers.Max());
+                Console.WriteLine("Minimum: " + integers.Min());
+            }
+            Console.WriteLine(); // Just for aesthetics
         }
     }
 }
