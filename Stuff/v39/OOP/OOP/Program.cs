@@ -8,7 +8,8 @@ namespace OOP
         static List<Customer> customers = new List<Customer>();
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            AddCustomer();
+            PrintCustomer();
         }
 
         static void AddCustomer()
@@ -23,7 +24,14 @@ namespace OOP
             var payementInfo = Console.ReadLine();
 
             customers.Add(new Customer{ _name = name, _age = age, _paymentInfo = payementInfo });
+        }
 
+        static void PrintCustomer()
+        {
+            foreach (var customer in customers)
+            {
+                Console.WriteLine("Name: {0}, Age: {1}, Payement info: {2}", customer._name, customer._age, customer._paymentInfo);
+            }
         }
     }
 }
