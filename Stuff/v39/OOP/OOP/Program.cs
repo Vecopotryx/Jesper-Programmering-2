@@ -31,11 +31,12 @@ namespace OOP
         {
 
             bool customerExists = false;
+            string name = "";
 
             while (!customerExists)
             {
                 Console.WriteLine("Name of customer: ");
-                var name = Console.ReadLine();
+                name = Console.ReadLine();
                 customerExists = customers.Exists(customer => customer._name == name);
 
 
@@ -53,9 +54,26 @@ namespace OOP
             {
                 case "test":
                     Console.WriteLine("Test");
+                    if (OrderConfirmation(name,"test"))
+                    {
+
+                    }
                     break;
                 case "test2":
                     break;
+            }
+        }
+
+        static bool OrderConfirmation(string nameIn, string productIn)
+        {
+            Console.WriteLine("You are placing an order of {0} for customer {1}", productIn, nameIn);
+            Console.WriteLine("Are you sure? (y/N)");
+            if(Console.ReadLine().ToLower() == "y")
+            {
+                return true;
+            } else
+            {
+                return false;
             }
         }
 
