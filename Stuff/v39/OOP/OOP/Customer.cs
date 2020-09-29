@@ -19,7 +19,7 @@ namespace OOP
             {
                 foreach (var product in _products)
                 {
-                    Console.WriteLine("Product: {0}, Price: {1}", product._productName, product._price);
+                    Console.WriteLine("Product: {0}, Price: {1}$", product._productName, product._price);
                 }
             }
             

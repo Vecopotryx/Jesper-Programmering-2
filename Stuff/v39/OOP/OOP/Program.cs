@@ -6,6 +6,11 @@ namespace OOP
     class Program
     {
         static List<Customer> customers = new List<Customer>();
+
+        static Product laptop = new Product { _productName = "Laptop", _price = 1000 };
+        static Product desktop = new Product { _productName = "Desktop", _price = 1400 };
+        static Product console = new Product { _productName = "Console", _price = 500 };
+
         static void Main(string[] args)
         {
             AddCustomer();
@@ -58,19 +63,41 @@ namespace OOP
                 }      
             }
 
-            Product test = new Product{ _productName = "test", _price = 10};
-
-            Console.WriteLine("Available products: Test, Test2");
-            switch (Console.ReadLine().ToLower())
+            var chosenProduct = "";
+            while (true)
             {
-                case "test":
-                    Console.WriteLine("Test");
-                    if (OrderConfirmation(name,"test"))
+                Console.WriteLine("Available products: Laptop (1000$), Desktop (1400$), Console (500$)");
+                Console.WriteLine("Abort by typing exit");
+                var input = Console.ReadLine().ToLower();
+                if(input == "laptop" || input == "desktop" || input == "console")
+                {
+                    if (OrderConfirmation(name, input))
                     {
-                        customers[customer]._products.Add(test);
+                        chosenProduct = input;
+                        break;
+                    } else
+                    {
+                        // do abort stuff
                     }
+                } else if(input == "exit")
+                {
+                    // do abort stuff
+                }
+            }
+            
+            switch (chosenProduct)
+            {
+                case "laptop":
+                    customers[customer]._products.Add(laptop);
                     break;
-                case "test2":
+                case "desktop":
+                    customers[customer]._products.Add(desktop);
+                    break;
+                case "console":
+                    customers[customer]._products.Add(console);
+                    break;
+                default:
+                    Console.WriteLine("The application didn't detect a valid order. Try again");
                     break;
             }
         }
