@@ -53,11 +53,26 @@ namespace OOP
             var age = int.Parse(Console.ReadLine());
 
             customers.Add(new Customer{ _name = name, _age = age, _products = new List<Product>()});
+
+            Console.WriteLine(); // For improved readability
+        }
+
+        static int FindCustomer(string name)
+        {
+            var customerIndex = customers.FindIndex(customer => customer._name == name);
+            if (customerIndex >= 0)
+            {
+                return customerIndex;
+            }
+            else
+            {
+                Console.WriteLine("Invalid customer, have you added them to the list?");
+                return -1;
+            }
         }
 
         static void OrderProduct()
         {
-            bool customerExists = false;
             string name = "";
             int customerIndex = -1;
 
@@ -74,46 +89,22 @@ namespace OOP
             }
             Console.WriteLine(); // Move to new line for next part
 
-            while (!customerExists)
+            while (true)
             {
                 Console.WriteLine("Name of customer: ");
                 name = Console.ReadLine();
-                customerIndex = customers.FindIndex(customer => customer._name == name);
-                if(customerIndex >= 0)
-                {
-                    customerExists = true;
-                } else
-                {
-                    customerExists = false;
-                }
-
-                if (customerExists)
+                customerIndex = FindCustomer(name);
+                if (customerIndex >= 0)
                 {
                     break;
-                } else
-                {
-                    Console.WriteLine("Invalid customer, have you added them to the list?");
-                }      
+                }
             }
 
-            var chosenProduct = "";
-            while (true)
+            var chosenProduct = ProductPicker(name);
+
+            if(chosenProduct == null)
             {
-                Console.WriteLine("Available products: Laptop (1000$), Desktop (1400$), Console (500$)");
-                Console.WriteLine("Abort by typing exit");
-                var input = Console.ReadLine().ToLower();
-                if(input == "laptop" || input == "desktop" || input == "console")
-                {
-                    if (OrderConfirmation(name, input))
-                    {
-                        chosenProduct = input;
-                        break;
-                    }
-                } else if(input == "exit")
-                {
-                    // abort
-                    return;
-                }
+                return;
             }
             
             switch (chosenProduct)
@@ -130,6 +121,30 @@ namespace OOP
                 default:
                     Console.WriteLine("The application didn't detect a valid order. Try again");
                     break;
+            }
+
+            Console.WriteLine(); // For improved readability
+        }
+
+        static string ProductPicker(string name)
+        {
+            while (true)
+            {
+                Console.WriteLine("Available products: Laptop (1000$), Desktop (1400$), Console (500$)");
+                Console.WriteLine("Abort by typing exit");
+                var input = Console.ReadLine().ToLower();
+                if (input == "laptop" || input == "desktop" || input == "console")
+                {
+                    if (OrderConfirmation(name, input))
+                    {
+                        return input;
+                    }
+                }
+                else if (input == "exit")
+                {
+                    // abort
+                    return null;
+                }
             }
         }
 
@@ -152,6 +167,7 @@ namespace OOP
             foreach (var customer in customers)
             {
                 customer.PrintInfo();
+                Console.WriteLine(); // For improved readability
             }
         }
     }
