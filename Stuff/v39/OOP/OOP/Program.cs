@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace OOP
 {
@@ -13,10 +14,34 @@ namespace OOP
 
         static void Main(string[] args)
         {
-            AddCustomer();
-            PrintCustomer();
-            OrderProduct();
-            PrintCustomer();
+            while (true)
+            {
+                MenuHandler();
+            }
+        }
+
+        static void MenuHandler()
+        {
+            Console.WriteLine("OOP Thingy");
+            Console.WriteLine("1. Add customer");
+            Console.WriteLine("2. Order product");
+            Console.WriteLine("3. Print customers");
+            Console.WriteLine("Type corresponding number and then press enter");
+            switch (Console.ReadLine())
+            {
+                case "1":
+                    AddCustomer();
+                    break;
+                case "2":
+                    OrderProduct();
+                    break;
+                case "3":
+                    PrintCustomers();
+                    break;
+                default:
+                    Console.WriteLine("Invalid option");
+                    break;
+            }
         }
 
         static void AddCustomer()
@@ -27,32 +52,40 @@ namespace OOP
             Console.WriteLine("Age: ");
             var age = int.Parse(Console.ReadLine());
 
-            Console.WriteLine("Payement info: ");
-            var payementInfo = Console.ReadLine();
-
-            customers.Add(new Customer{ _name = name, _age = age, _paymentInfo = payementInfo, _products = new List<Product>()});
+            customers.Add(new Customer{ _name = name, _age = age, _products = new List<Product>()});
         }
 
         static void OrderProduct()
         {
-
             bool customerExists = false;
             string name = "";
-            int customer = -1;
+            int customerIndex = -1;
+
+            if (!customers.Any())
+            {
+                Console.WriteLine("No customers in database, please add a customer first");
+                return;
+            }
+
+            Console.WriteLine("Customers in database: ");
+            foreach (var customer in customers)
+            {
+                Console.Write("{0}, ", customer._name);
+            }
+            Console.WriteLine(); // Move to new line for next part
 
             while (!customerExists)
             {
                 Console.WriteLine("Name of customer: ");
                 name = Console.ReadLine();
-                customer = customers.FindIndex(customer => customer._name == name);
-                if(customer >= 0)
+                customerIndex = customers.FindIndex(customer => customer._name == name);
+                if(customerIndex >= 0)
                 {
                     customerExists = true;
                 } else
                 {
                     customerExists = false;
                 }
-
 
                 if (customerExists)
                 {
@@ -75,26 +108,24 @@ namespace OOP
                     {
                         chosenProduct = input;
                         break;
-                    } else
-                    {
-                        // do abort stuff
                     }
                 } else if(input == "exit")
                 {
-                    // do abort stuff
+                    // abort
+                    return;
                 }
             }
             
             switch (chosenProduct)
             {
                 case "laptop":
-                    customers[customer]._products.Add(laptop);
+                    customers[customerIndex]._products.Add(laptop);
                     break;
                 case "desktop":
-                    customers[customer]._products.Add(desktop);
+                    customers[customerIndex]._products.Add(desktop);
                     break;
                 case "console":
-                    customers[customer]._products.Add(console);
+                    customers[customerIndex]._products.Add(console);
                     break;
                 default:
                     Console.WriteLine("The application didn't detect a valid order. Try again");
@@ -116,12 +147,11 @@ namespace OOP
             }
         }
 
-        static void PrintCustomer()
+        static void PrintCustomers()
         {
             foreach (var customer in customers)
             {
                 customer.PrintInfo();
-                // Console.WriteLine("Name: {0}, Age: {1}, Payement info: {2}", customer._name, customer._age, customer._paymentInfo);
             }
         }
     }
