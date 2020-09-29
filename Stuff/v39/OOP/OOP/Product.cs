@@ -6,5 +6,6 @@ namespace OOP
 {
     class Product
     {
+        public int _productID { get; set; }
     }
 }

@@ -30,7 +30,8 @@ namespace OOP
         {
             foreach (var customer in customers)
             {
-                Console.WriteLine("Name: {0}, Age: {1}, Payement info: {2}", customer._name, customer._age, customer._paymentInfo);
+                customer.PrintInfo();
+                // Console.WriteLine("Name: {0}, Age: {1}, Payement info: {2}", customer._name, customer._age, customer._paymentInfo);
             }
         }
     }
