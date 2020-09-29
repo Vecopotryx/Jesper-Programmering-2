@@ -10,6 +10,7 @@ namespace OOP
         {
             AddCustomer();
             PrintCustomer();
+            OrderProduct();
         }
 
         static void AddCustomer()
@@ -24,6 +25,38 @@ namespace OOP
             var payementInfo = Console.ReadLine();
 
             customers.Add(new Customer{ _name = name, _age = age, _paymentInfo = payementInfo });
+        }
+
+        static void OrderProduct()
+        {
+
+            bool customerExists = false;
+
+            while (!customerExists)
+            {
+                Console.WriteLine("Name of customer: ");
+                var name = Console.ReadLine();
+                customerExists = customers.Exists(customer => customer._name == name);
+
+
+                if (customerExists)
+                {
+                    break;
+                } else
+                {
+                    Console.WriteLine("Invalid customer, have you added them to the list?");
+                }      
+            }
+
+            Console.WriteLine("Available products: Test, Test2");
+            switch (Console.ReadLine().ToLower())
+            {
+                case "test":
+                    Console.WriteLine("Test");
+                    break;
+                case "test2":
+                    break;
+            }
         }
 
         static void PrintCustomer()
