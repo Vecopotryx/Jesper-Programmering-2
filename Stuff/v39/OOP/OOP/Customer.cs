@@ -20,9 +20,7 @@ namespace OOP
                 {
                     Console.WriteLine("Product: {0}, Price: {1}$", product._productName, product._price);
                 }
-            }
-            
+            }  
         }
-
     }
 }

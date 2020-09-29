@@ -26,6 +26,7 @@ namespace OOP
             Console.WriteLine("1. Add customer");
             Console.WriteLine("2. Order product");
             Console.WriteLine("3. Print customers");
+            Console.WriteLine("4. Exit");
             Console.WriteLine("Type corresponding number and then press enter");
             switch (Console.ReadLine())
             {
@@ -37,6 +38,9 @@ namespace OOP
                     break;
                 case "3":
                     PrintCustomers();
+                    break;
+                case "4":
+                    Environment.Exit(0);
                     break;
                 default:
                     Console.WriteLine("Invalid option");
@@ -52,7 +56,13 @@ namespace OOP
             Console.WriteLine("Age: ");
             var age = int.Parse(Console.ReadLine());
 
-            customers.Add(new Customer{ _name = name, _age = age, _products = new List<Product>()});
+            if(FindCustomer(name) == -1)
+            {
+                customers.Add(new Customer { _name = name, _age = age, _products = new List<Product>() });
+            } else
+            {
+                Console.WriteLine("Customer already exists in database!");
+            }
 
             Console.WriteLine(); // For improved readability
         }
