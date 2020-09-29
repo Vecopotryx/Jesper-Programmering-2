@@ -14,6 +14,15 @@ namespace OOP
         public void PrintInfo()
         {
             Console.WriteLine("Name: {0}, Age: {1}, Payement info: {2}", _name, _age, _paymentInfo);
+            Console.WriteLine("Current orders:");
+            if(_products != null)
+            {
+                foreach (var product in _products)
+                {
+                    Console.WriteLine("Product: {0}, Price: {1}", product._productName, product._price);
+                }
+            }
+            
         }
 
     }

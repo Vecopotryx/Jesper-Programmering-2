@@ -11,6 +11,7 @@ namespace OOP
             AddCustomer();
             PrintCustomer();
             OrderProduct();
+            PrintCustomer();
         }
 
         static void AddCustomer()
@@ -24,7 +25,7 @@ namespace OOP
             Console.WriteLine("Payement info: ");
             var payementInfo = Console.ReadLine();
 
-            customers.Add(new Customer{ _name = name, _age = age, _paymentInfo = payementInfo });
+            customers.Add(new Customer{ _name = name, _age = age, _paymentInfo = payementInfo, _products = new List<Product>()});
         }
 
         static void OrderProduct()
@@ -32,12 +33,20 @@ namespace OOP
 
             bool customerExists = false;
             string name = "";
+            int customer = -1;
 
             while (!customerExists)
             {
                 Console.WriteLine("Name of customer: ");
                 name = Console.ReadLine();
-                customerExists = customers.Exists(customer => customer._name == name);
+                customer = customers.FindIndex(customer => customer._name == name);
+                if(customer >= 0)
+                {
+                    customerExists = true;
+                } else
+                {
+                    customerExists = false;
+                }
 
 
                 if (customerExists)
@@ -49,6 +58,8 @@ namespace OOP
                 }      
             }
 
+            Product test = new Product{ _productName = "test", _price = 10};
+
             Console.WriteLine("Available products: Test, Test2");
             switch (Console.ReadLine().ToLower())
             {
@@ -56,7 +67,7 @@ namespace OOP
                     Console.WriteLine("Test");
                     if (OrderConfirmation(name,"test"))
                     {
-
+                        customers[customer]._products.Add(test);
                     }
                     break;
                 case "test2":
@@ -73,6 +84,7 @@ namespace OOP
                 return true;
             } else
             {
+                Console.WriteLine("Order aborted");
                 return false;
             }
         }
