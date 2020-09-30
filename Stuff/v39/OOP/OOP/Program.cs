@@ -76,7 +76,6 @@ namespace OOP
             }
             else
             {
-                Console.WriteLine("Invalid customer, have you added them to the list?");
                 return -1;
             }
         }
@@ -107,6 +106,9 @@ namespace OOP
                 if (customerIndex >= 0)
                 {
                     break;
+                } else
+                {
+                    Console.WriteLine("Invalid customer, have you added them to the list?");
                 }
             }
 
