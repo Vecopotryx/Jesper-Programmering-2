@@ -6,5 +6,6 @@ namespace OOP
 {
     class ProdConsole : Product
     {
+        public bool _underTV { get; set; }
     }
 }

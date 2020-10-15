@@ -6,5 +6,6 @@ namespace OOP
 {
     class ProdLaptop : Product
     {
+        public int _screenSize { get; set; }
     }
 }

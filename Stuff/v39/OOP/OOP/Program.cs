@@ -8,9 +8,9 @@ namespace OOP
     {
         static List<Customer> customers = new List<Customer>();
 
-        static Product laptop = new Product { _productName = "Laptop", _price = 1000 };
-        static Product desktop = new Product { _productName = "Desktop", _price = 1400 };
-        static Product console = new Product { _productName = "Console", _price = 500 };
+        static ProdLaptop laptop = new ProdLaptop { _productName = "Laptop", _price = 1000, _screenSize = 15 };
+        static ProdDesktop desktop = new ProdDesktop { _productName = "Desktop", _price = 1400, _isSuperior = true};
+        static ProdConsole console = new ProdConsole { _productName = "Console", _price = 500, _underTV = true };
 
         static void Main(string[] args)
         {
@@ -122,6 +122,8 @@ namespace OOP
             switch (chosenProduct)
             {
                 case "laptop":
+                    Console.WriteLine("Please specify screen size:");
+                    laptop._screenSize = GetIntInput();
                     customers[customerIndex]._products.Add(laptop);
                     break;
                 case "desktop":
@@ -136,6 +138,19 @@ namespace OOP
             }
 
             Console.WriteLine(); // For improved readability
+        }
+
+        static int GetIntInput()
+        {
+            while (true)
+            {
+                var consoleIn = Console.ReadLine();
+
+                if(int.TryParse(consoleIn, out int a))
+                {
+                    return int.Parse(consoleIn);
+                }
+            }
         }
 
         static string ProductPicker(string name)

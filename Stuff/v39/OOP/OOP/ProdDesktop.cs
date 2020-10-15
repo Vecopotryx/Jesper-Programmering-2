@@ -6,5 +6,6 @@ namespace OOP
 {
     class ProdDesktop : Product
     {
+        public bool _isSuperior { get; set; }
     }
 }
