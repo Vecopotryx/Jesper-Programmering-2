@@ -54,7 +54,7 @@ namespace OOP
             var name = Console.ReadLine();
 
             Console.WriteLine("Age: ");
-            var age = int.Parse(Console.ReadLine());
+            var age = GetIntInput();
 
             if(FindCustomer(name) == -1)
             {
@@ -122,9 +122,10 @@ namespace OOP
             switch (chosenProduct)
             {
                 case "laptop":
-                    Console.WriteLine("Please specify screen size:");
+                    Console.WriteLine("Please specify screen size in inches:");
                     laptop._screenSize = GetIntInput();
                     customers[customerIndex]._products.Add(laptop);
+                    Console.WriteLine("Added a {0} inch laptop", laptop._screenSize);
                     break;
                 case "desktop":
                     customers[customerIndex]._products.Add(desktop);
@@ -149,6 +150,9 @@ namespace OOP
                 if(int.TryParse(consoleIn, out int a))
                 {
                     return int.Parse(consoleIn);
+                } else
+                {
+                    Console.WriteLine("That doesn't appear to be a valid integer, try again");
                 }
             }
         }
